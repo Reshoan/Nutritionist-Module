@@ -2,7 +2,7 @@ import { IsNotEmpty, IsEmail, IsString, MinLength, Validate } from "class-valida
 import { Roles } from "src/utility/common/user-roles.enum";
 import { IsValidRole } from "src/utility/validators/role-validator";
 
-export class UserSignup {
+export class UserSignupDto {
     @IsNotEmpty({ message: 'Name is required' })
     @IsString({ message: 'Name must be a string' })
     name: string;
