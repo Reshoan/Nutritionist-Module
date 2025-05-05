@@ -9,7 +9,8 @@ export class NutritionistsController {
 
   @Post()
   create(@Body() createNutritionistDto: CreateNutritionistDto) {
-    return this.nutritionistsService.create(createNutritionistDto);
+    //return this.nutritionistsService.create(createNutritionistDto);
+    return "hi"
   }
 
   @Get()
