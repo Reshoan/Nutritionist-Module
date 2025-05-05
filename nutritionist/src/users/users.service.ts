@@ -5,7 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserSignupDto } from './dto/user-signup.dto';
-import {hash} from 'bcrypt';
+import {hash, compare} from 'bcrypt';
+import { UserSigninDto } from './dto/user-signin.dto';
+import { sign, SignOptions } from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt';
+import {config} from "dotenv"
+config();
+
 
 @Injectable()
 export class UsersService {
@@ -13,6 +19,7 @@ export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly jwtService: JwtService,
   ){}
 
   async signup(userSignUpDto: UserSignupDto): Promise<UserEntity> {
@@ -24,6 +31,16 @@ export class UsersService {
     
     // Exclude the password field before returning
     const { password, ...result } = user;
+    return result as UserEntity;
+  }
+
+  async signin(userSignInDto: UserSigninDto): Promise<UserEntity> {
+    const userExists = await this.userRepository.createQueryBuilder('users').addSelect('users.password').where('users.email = :email', { email: userSignInDto.email }).getOne();
+    if(!userExists) throw new BadRequestException('User does not exist, please signup first');
+    const matchPassword = await compare(userSignInDto.password, userExists.password);
+    if(!matchPassword) throw new BadRequestException('Invalid password, please try again');
+
+    const { password, ...result } = userExists;
     return result as UserEntity;
   }
 
@@ -50,4 +67,12 @@ export class UsersService {
   async findByEmail(email: string) {
     return await this.userRepository.findOneBy({ email: email });
   }
+
+  async accessToken(user: UserEntity): Promise<string> {
+    return this.jwtService.sign({
+      id: user.id,
+      email: user.email,
+    });
+  }
+  
 }
