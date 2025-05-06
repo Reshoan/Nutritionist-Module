@@ -10,9 +10,11 @@ import { BlogsModule } from './blogs/blogs.module';
 import { MailsModule } from './mails/mails.module';
 import { ProgressTrackingModule } from './progress-tracking/progress-tracking.module';
 import { FoodIndexModule } from './food-index/food-index.module';
+import { ClientModule } from './client/client.module';
+import { MealPlanModule } from './meal-plan/meal-plan.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistsModule, UsersModule, AppointmentsModule, BlogsModule, MailsModule, ProgressTrackingModule, FoodIndexModule],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistsModule, UsersModule, AppointmentsModule, BlogsModule, MailsModule, ProgressTrackingModule, FoodIndexModule, ClientModule, MealPlanModule],
   controllers: [AppController],
   providers: [AppService],
 })

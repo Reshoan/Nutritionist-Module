@@ -19,7 +19,7 @@ export class UserEntity {
     @Column({ type: "boolean", default: false })
     isVerified: boolean;
 
-    @Column( {type: 'enum', enum: Roles, array: true, default: [Roles.USER]})
+    @Column( {type: 'enum', enum: Roles, array: true, default: [Roles.CLIENT]})
     roles: Roles[];
 
     @CreateDateColumn()
