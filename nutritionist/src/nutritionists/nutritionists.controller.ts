@@ -1,17 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { NutritionistsService } from './nutritionists.service';
 import { CreateNutritionistDto } from './dto/create-nutritionist.dto';
 import { UpdateNutritionistDto } from './dto/update-nutritionist.dto';
+import { UserEntity } from 'src/users/entities/user.entity';
 
 @Controller('nutritionists')
 export class NutritionistsController {
-  constructor(private readonly nutritionistsService: NutritionistsService) {}
+  constructor(
+    private readonly nutritionistsService: NutritionistsService,
+    @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
+  ) {}
 
   @Post()
   create(@Body() createNutritionistDto: CreateNutritionistDto) {
-    //return this.nutritionistsService.create(createNutritionistDto);
-    return "hi"
+    return this.nutritionistsService.create(createNutritionistDto);
   }
+  
 
   @Get()
   findAll() {
