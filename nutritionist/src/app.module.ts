@@ -8,9 +8,10 @@ import { AppointmentModule } from './appointment/appointment.module';
 import { ClientModule } from './client/client.module';
 import { UserModule } from './user/user.module';
 import { AppointmentRequestModule } from './appointment-request/appointment-request.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistModule, AppointmentModule, ClientModule, UserModule, AppointmentRequestModule],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistModule, AppointmentModule, ClientModule, UserModule, AppointmentRequestModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
