@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from './entities/user.entity';
+import { roles, UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserSignupDto } from './dto/user-signup.dto';
 import {hash, compare} from 'bcrypt';
@@ -10,6 +10,7 @@ import { UserSigninDto } from './dto/user-signin.dto';
 import { sign, SignOptions } from 'jsonwebtoken';
 import { JwtService } from '@nestjs/jwt';
 import {config} from "dotenv"
+import { Roles } from 'src/utility/common/user-roles.enum';
 config();
 
 
@@ -24,16 +25,28 @@ export class UsersService {
 
   async signup(userSignUpDto: UserSignupDto): Promise<UserEntity> {
     const userExists = await this.findByEmail(userSignUpDto.email);
-    if (userExists) throw new BadRequestException('User already exists, email is already in use');
+    if (userExists) {
+      throw new BadRequestException('User already exists, email is already in use');
+    }
+  
+    // Default role fallback if roles not specified
+    if (!userSignUpDto.roles || userSignUpDto.roles.length === 0) {
+      userSignUpDto.roles = [Roles.CLIENT];
+    }
+  
+    // Hash the password
     userSignUpDto.password = await hash(userSignUpDto.password, 10);
-    let user = this.userRepository.create(userSignUpDto);
-    user = await this.userRepository.save(user);
-    
-    // Exclude the password field before returning
+  
+    // Create and save the user
+    const user = await this.userRepository.save(
+      this.userRepository.create(userSignUpDto) // <-- fixed this line
+    );
+  
     const { password, ...result } = user;
     return result as UserEntity;
   }
-
+  
+  
   async signin(userSignInDto: UserSigninDto): Promise<UserEntity> {
     const userExists = await this.userRepository.createQueryBuilder('users').addSelect('users.password').where('users.email = :email', { email: userSignInDto.email }).getOne();
     if(!userExists) throw new BadRequestException('User does not exist, please signup first');

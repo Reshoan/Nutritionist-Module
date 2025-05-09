@@ -1,6 +1,12 @@
 import { Roles } from "src/utility/common/user-roles.enum";
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 
+export enum roles {
+    ADMIN = 'admin',
+    NUTRITIONALIST = 'nutritionist',
+    CLIENT = 'client'
+}
+
 @Entity("users")
 export class UserEntity {
 

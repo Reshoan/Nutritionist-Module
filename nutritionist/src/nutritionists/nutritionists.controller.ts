@@ -13,7 +13,7 @@ export class NutritionistsController {
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createNutritionistDto: CreateNutritionistDto) {
     return this.nutritionistsService.create(createNutritionistDto);
   }
