@@ -1,11 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { Nutritionist } from 'src/nutritionist/entities/nutritionist.entity';
 import { Client } from 'src/client/entities/client.entity';
-
-export enum UserType {
-NUTRITIONIST = 'nutritionist',
-CLIENT = 'client',
-}
+import { UserType } from 'src/utility/common/user-type.enum';
 
 @Entity()
 export class User {

@@ -7,9 +7,11 @@ import { NutritionistModule } from './nutritionist/nutritionist.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ClientModule } from './client/client.module';
 import { UserModule } from './user/user.module';
+import { CliAptRequestModule } from './cli-apt-request/cli-apt-request.module';
+import { AppointmentRequestModule } from './appointment-request/appointment-request.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistModule, AppointmentModule, ClientModule, UserModule],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistModule, AppointmentModule, ClientModule, UserModule, CliAptRequestModule, AppointmentRequestModule],
   controllers: [AppController],
   providers: [AppService],
 })
