@@ -1,26 +1,12 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    OneToMany,
-  } from 'typeorm';
-  import { Appointment } from 'src/appointment/entities/appointment.entity';
-  
-  @Entity('client')
-  export class Client {
-    @PrimaryGeneratedColumn()
-    client_id: number;
-  
-    @Column({ type: 'varchar', length: 100 })
-    name: string;
-  
-    @Column({ type: 'varchar', length: 100, unique: true })
-    email: string;
-  
-    @Column({ type: 'varchar', length: 255 })
-    password_hash: string;
-  
-    @OneToMany(() => Appointment, (appointment) => appointment.client)
-    appointments: Appointment[];
-  }
-  
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
+
+@Entity()
+export class Client {
+@PrimaryGeneratedColumn('uuid')
+clientId: string;
+
+@OneToOne(() => User, user => user.clientProfile, { cascade: true })
+@JoinColumn()
+user: User;
+}

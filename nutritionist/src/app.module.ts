@@ -6,9 +6,10 @@ import { dataSourceOptions } from 'db/data-source';
 import { NutritionistModule } from './nutritionist/nutritionist.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ClientModule } from './client/client.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistModule, AppointmentModule, ClientModule],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistModule, AppointmentModule, ClientModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

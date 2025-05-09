@@ -1,26 +1,12 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    OneToMany,
-  } from 'typeorm';
-  import { Appointment } from 'src/appointment/entities/appointment.entity';
-  
-  @Entity('nutritionist')
-  export class Nutritionist {
-    @PrimaryGeneratedColumn()
-    nutritionist_id: number;
-  
-    @Column({ type: 'varchar', length: 100 })
-    name: string;
-  
-    @Column({ type: 'varchar', length: 100, unique: true })
-    email: string;
-  
-    @Column({ type: 'varchar', length: 255 })
-    password_hash: string;
-  
-    @OneToMany(() => Appointment, (appointment) => appointment.nutritionist)
-    appointments: Appointment[];
-  }
-  
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
+
+@Entity()
+export class Nutritionist {
+@PrimaryGeneratedColumn('uuid')
+nutritionistId: string;
+
+@OneToOne(() => User, user => user.nutritionistProfile, { cascade: true })
+@JoinColumn()
+user: User;
+}
