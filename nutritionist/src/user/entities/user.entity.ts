@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { Nutritionist } from 'src/nutritionist/entities/nutritionist.entity';
 import { Client } from 'src/client/entities/client.entity';
-import { UserType } from 'src/utility/common/user-type.enum';
+import { UserType } from 'src/utility/common/enums/user-type.enum';
 
-@Entity()
+@Entity('users')
 export class User {
 @PrimaryGeneratedColumn('uuid')
 userId: string;

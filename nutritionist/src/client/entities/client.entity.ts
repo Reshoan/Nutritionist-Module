@@ -3,7 +3,7 @@ import { User } from 'src/user/entities/user.entity';
 import { AppointmentRequest } from 'src/appointment-request/entities/appointment-request.entity';
 import { Appointment } from 'src/appointment/entities/appointment.entity';
 
-@Entity()
+@Entity('clients')
 export class Client {
 @PrimaryGeneratedColumn('uuid')
 clientId: string;

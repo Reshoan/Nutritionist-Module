@@ -15,7 +15,7 @@ export enum RequestStatus {
   REJECTED = 'rejected',
 }
 
-@Entity()
+@Entity('appointment_requests')
 export class AppointmentRequest {
   @PrimaryGeneratedColumn('uuid')
   requestId: string;

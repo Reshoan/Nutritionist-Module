@@ -15,7 +15,7 @@ export enum AppointmentStatus {
   CANCELLED = 'cancelled',
 }
 
-@Entity()
+@Entity('appointments')
 export class Appointment {
   @PrimaryGeneratedColumn('uuid')
   appointmentId: string;
