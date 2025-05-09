@@ -6,10 +6,10 @@ import {
   } from 'typeorm';
   import { Appointment } from 'src/appointment/entities/appointment.entity';
   
-  @Entity('client')
-  export class Client {
+  @Entity('nutritionist')
+  export class Nutritionist {
     @PrimaryGeneratedColumn()
-    client_id: number;
+    nutritionist_id: number;
   
     @Column({ type: 'varchar', length: 100 })
     name: string;
@@ -20,7 +20,7 @@ import {
     @Column({ type: 'varchar', length: 255 })
     password_hash: string;
   
-    @OneToMany(() => Appointment, (appointment) => appointment.client)
+    @OneToMany(() => Appointment, (appointment) => appointment.nutritionist)
     appointments: Appointment[];
   }
   

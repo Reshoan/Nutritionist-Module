@@ -3,18 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from 'db/data-source';
-import { NutritionistsModule } from './nutritionists/nutritionists.module';
-import { UsersModule } from './users/users.module';
-import { AppointmentsModule } from './appointments/appointments.module';
-import { BlogsModule } from './blogs/blogs.module';
-import { MailsModule } from './mails/mails.module';
-import { ProgressTrackingModule } from './progress-tracking/progress-tracking.module';
-import { FoodIndexModule } from './food-index/food-index.module';
+import { NutritionistModule } from './nutritionist/nutritionist.module';
+import { AppointmentModule } from './appointment/appointment.module';
 import { ClientModule } from './client/client.module';
-import { MealPlanModule } from './meal-plan/meal-plan.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistsModule, UsersModule, AppointmentsModule, BlogsModule, MailsModule, ProgressTrackingModule, FoodIndexModule, ClientModule, MealPlanModule],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), NutritionistModule, AppointmentModule, ClientModule],
   controllers: [AppController],
   providers: [AppService],
 })
