@@ -32,6 +32,7 @@ export class UserService {
     throw new BadRequestException('Email already registered');
   }
 
+
   const user = this.userRepository.create({
     email,
     password: await bcrypt.hash(password, 10),
@@ -53,6 +54,9 @@ export class UserService {
   return safeUser;
 }
 
+async findByEmail(email: string): Promise<User | null> {
+  return await this.userRepository.findOne({ where: { email } });
+}
 
 
 

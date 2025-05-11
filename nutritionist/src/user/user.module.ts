@@ -10,5 +10,6 @@ import { Nutritionist } from 'src/nutritionist/entities/nutritionist.entity';
   imports: [TypeOrmModule.forFeature([User, Client, Nutritionist])],
   controllers: [UserController],
   providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule {}
