@@ -5,7 +5,7 @@ export class CreateAppointmentRequestDto {
   nutritionistId: string;
 
   @IsDateString()
-  preferredDateTime: Date;
+  preferredDateTime: string; // ✅ Change this from Date to string
 
   @IsOptional()
   @IsString()
