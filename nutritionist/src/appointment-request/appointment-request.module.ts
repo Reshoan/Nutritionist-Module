@@ -10,5 +10,6 @@ import { Nutritionist } from 'src/nutritionist/entities/nutritionist.entity';
   imports: [TypeOrmModule.forFeature([AppointmentRequest, Client, Nutritionist])],
   controllers: [AppointmentRequestController],
   providers: [AppointmentRequestService],
+  exports: [AppointmentRequestService], // Export if used elsewhere (optional)
 })
 export class AppointmentRequestModule {}
