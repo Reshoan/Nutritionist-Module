@@ -29,7 +29,16 @@ export class AppointmentRequestController {
 const clientEmail = req.user['email'];
     return this.appointmentRequestService.create(clientEmail, dto);
   }
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/status')
+  async getStatusForClient(@Param('id') requestId: string, @Req() req: Request) {
+    if (!req.user || !req.user['email']) {
+      throw new UnauthorizedException('User not authenticated');
+    }
 
+    const clientEmail = req.user['email'];
+    return this.appointmentRequestService.getStatusForClient(clientEmail, requestId);
+  }
   @Get()
   findAll() {
     return this.appointmentRequestService.findAll();

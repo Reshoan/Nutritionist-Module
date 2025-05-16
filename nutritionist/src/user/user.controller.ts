@@ -13,7 +13,6 @@ export class UserController {
   async register(@Body() dto: CreateUserDto): Promise<UserResponseDto> {
   const user = await this.userService.register(dto);
   return {
-    userId: user.userId!,
     email: user.email!,
     name: user.name!,
     userType: user.userType!,

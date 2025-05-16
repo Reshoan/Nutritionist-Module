@@ -32,7 +32,6 @@ export class UserService {
     throw new BadRequestException('Email already registered');
   }
 
-
   const user = this.userRepository.create({
     email,
     password: await bcrypt.hash(password, 10),
@@ -43,16 +42,23 @@ export class UserService {
   const savedUser = await this.userRepository.save(user);
 
   if (userType === UserType.CLIENT) {
-    const client = this.clientRepository.create({ user: savedUser });
+    const client = this.clientRepository.create({
+      clientId: savedUser.userId,   // Set clientId = userId
+      user: savedUser,
+    });
     await this.clientRepository.save(client);
   } else if (userType === UserType.NUTRITIONIST) {
-    const nutritionist = this.nutritionistRepository.create({ user: savedUser });
+    const nutritionist = this.nutritionistRepository.create({
+      nutritionistId: savedUser.userId,  // Set nutritionistId = userId
+      user: savedUser,
+    });
     await this.nutritionistRepository.save(nutritionist);
   }
 
   const { password: _, ...safeUser } = savedUser;
   return safeUser;
 }
+
 
 async findByEmail(email: string): Promise<User | null> {
   return await this.userRepository.findOne({ where: { email } });
