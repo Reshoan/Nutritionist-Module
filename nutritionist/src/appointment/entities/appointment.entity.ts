@@ -23,7 +23,7 @@ export class Appointment {
   @Column({ type: 'timestamp' })
   appointmentDateTime: Date;
 
-  @Column()
+  @Column({nullable: true})
   meetLink: string;
 
   @Column({ default: false })

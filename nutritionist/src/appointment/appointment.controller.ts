@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Param } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
@@ -11,8 +11,12 @@ import { Roles } from 'src/auth/roles/roles.decorator';
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
-  @Post()
-  async create(@Body() createAppointmentDto: CreateAppointmentDto) {
-    return this.appointmentService.create(createAppointmentDto);
-  }
+  @Post(':id/accept')
+async acceptRequest(
+  @Param('id') requestId: string,
+  @Body('appointmentDateTime') appointmentDateTime?: string,
+) {
+  return this.appointmentService.create(requestId, appointmentDateTime);
+}
+
 }

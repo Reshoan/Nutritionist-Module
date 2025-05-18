@@ -6,6 +6,7 @@ import { AppointmentController } from './appointment.controller';
 import { Client } from 'src/client/entities/client.entity';
 import { Nutritionist } from 'src/nutritionist/entities/nutritionist.entity';
 import { AppointmentRequest } from 'src/appointment-request/entities/appointment-request.entity';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AppointmentRequest } from 'src/appointment-request/entities/appointment
       Nutritionist,
       AppointmentRequest,
     ]),
+    MailModule,
   ],
   controllers: [AppointmentController],
   providers: [AppointmentService],
